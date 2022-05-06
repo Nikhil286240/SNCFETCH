@@ -9,8 +9,8 @@ Welcome to our group project for Sensors and Control Autumn 2022. The following 
 
 3. Copy the two model files used from the "models" folder and paste them into your ".gazebo" folder from the two lines. 
   
-  'cp -r catkin_ws/src/models/maze .gazebo/models/'
-  cp -r catkin_ws/src/models/table_marble .gazebo/models/
+  `cp -r catkin_ws/src/models/maze .gazebo/models/`
+  `cp -r catkin_ws/src/models/table_marble .gazebo/models/`
 
 4. Build your workspace and run the following four lines of code in your terminal. 
 
