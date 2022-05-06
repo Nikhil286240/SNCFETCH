@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+
+    <scene>
+      <shadows>0</shadows>
+    </scene>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <include>
+      <uri>model://ground_plane</uri>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+   <!-- <include>
+      <uri>model://grey_wall</uri>
+      <pose>3.7 7.5 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://grey_wall</uri>
+      <pose>-3.7 7.5 0 0 0 0</pose>
+    </include>
+
+    <include>
+       <uri>model://grey_wall</uri>
+       <pose>-7.5 3.7 0 0 0 1.5708</pose>
+    </include>
+
+    <include>
+       <uri>model://grey_wall</uri>
+       <pose>-7.5 -3.7 0 0 0 1.5708</pose>
+    </include>
+
+    <include>
+       <uri>model://grey_wall</uri>
+       <pose>3.7 -7.5 0 0 0 0</pose>
+    </include>
+
+    <include>
+       <uri>model://grey_wall</uri>
+       <pose>-3.7 -7.5 0 0 0 0</pose>
+    </include>
+
+    <include>
+       <uri>model://grey_wall</uri>
+       <pose>7.5 3.7 0 0 0 1.5708</pose>
+    </include>
+
+    <include>
+       <uri>model://grey_wall</uri>
+       <pose>7.5 -3.7 0 0 0 1.5708</pose>
+    </include>-->
+
+    <include>
+       <uri>model://maze</uri>
+       <pose>0 0 0 0 0 0</pose>
+    </include>
+
+    <include>
+       <uri>model://table_marble</uri>
+       <pose>6.5 -1 0.6 0 0 1.5708</pose>
+    </include>
+
+<!--    <include>
+       <uri>model://cafe_table</uri>
+       <pose>7 0 0 0 0 0</pose>
+    </include>
+
+    <include>
+       <uri>model://cafe_table</uri>
+       <pose>7 -1 0 0 0 0</pose>
+    </include>
+
+    <include>
+       <uri>model://cafe_table</uri>
+       <pose>7 -2 0 0 0 0</pose>
+       <scale> 0.5 0 0 </scale>
+    </include>-->
+
+  </world>
+</sdf>
