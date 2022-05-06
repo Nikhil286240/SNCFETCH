@@ -24,7 +24,7 @@ This opens the Gazebo simulation along with Fetch robot, Turtlebot guider robot 
 ![a1](./catkin_ws/src/pic/a1.png)
 
 `roslaunch visp_auto_tracker tracklive_usb.launch` 
-This opens the Fetch's RGB camera and Vision ViSP ROS package to track and obtain pose from QR code.
+This opens the Fetch's RGB camera and Vision ViSP ROS package to track and obtain the pose from QR code.
 
 ![a2](./catkin_ws/src/pic/a2.png)
 
