@@ -1,4 +1,4 @@
-Sensors & Control Group Project (Fetch robot following the path of a guider robot)
+Sensors & Control Group Project 
 ======
 
 Setup guide
