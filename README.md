@@ -15,7 +15,8 @@ Welcome to our group project for Sensors and Control Autumn 2022. The following 
 4. Build your workspace and run the following four lines of code in your terminal. 
 
 `roslaunch fetch_gazebo fetch.launch` (Opens Gazebo simulation along with Fetch robot, Turtlebot guider robot and pre-made world file).
-[INSERT IMAGE OF WORLD]
+
+![a1](./catkin_ws/src/pic/a1.png)
 
 `roslaunch visp_auto_tracker tracklive_usb.launch` (Opens the Fetch's RGB camera and Vision ViSP ROS package to track and obtain pose from QR code).
 
