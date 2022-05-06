@@ -14,13 +14,13 @@ Welcome to our group project for Sensors and Control Autumn 2022. The following 
 
 4. Build your workspace and run the following four lines of code in your terminal. 
 
-roslaunch fetch_gazebo fetch.launch (Opens Gazebo simulation along with Fetch robot, Turtlebot guider robot and pre-made world file).
+`roslaunch fetch_gazebo fetch.launch` (Opens Gazebo simulation along with Fetch robot, Turtlebot guider robot and pre-made world file).
 [INSERT IMAGE OF WORLD]
 
-roslaunch visp_auto_tracker tracklive_usb.launch (Opens the Fetch's RGB camera and Vision ViSP ROS package to track and obtain pose from QR code).
+`roslaunch visp_auto_tracker tracklive_usb.launch` (Opens the Fetch's RGB camera and Vision ViSP ROS package to track and obtain pose from QR code).
 
 [INSERT IMAGE OF QR CODE TRACKING]
 
-rosrun controller controller_node (Runs ROS node which initiates the path following algorithm for the Fetch robot).
+`rosrun controller controller_node` (Runs ROS node which initiates the path following algorithm for the Fetch robot).
 
-roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch (Initiates keyboard controls for the Turtlebot guider robot).
+`roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch` (Initiates keyboard controls for the Turtlebot guider robot).
