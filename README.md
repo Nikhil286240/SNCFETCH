@@ -1,7 +1,11 @@
-# SNCFETCH
-Sensors &amp; Control group project for Fetch robot following the path of a guider robot. AUT2022.
+Sensors & Control Group Project 
+======
+
+Setup guide
+------
 
 Welcome to our group project for Sensors and Control Autumn 2022. The following is a complete guide to setup and run the simulation. 
+
 
 1. Install Gazebo (with Fetch) and Turtlebot packages. 
 
@@ -15,11 +19,12 @@ Welcome to our group project for Sensors and Control Autumn 2022. The following 
 4. Build your workspace and run the following four lines of code in your terminal. 
 
 `roslaunch fetch_gazebo fetch.launch` (Opens Gazebo simulation along with Fetch robot, Turtlebot guider robot and pre-made world file).
-[INSERT IMAGE OF WORLD]
+
+![a1](./catkin_ws/src/pic/a1.png)
 
 `roslaunch visp_auto_tracker tracklive_usb.launch` (Opens the Fetch's RGB camera and Vision ViSP ROS package to track and obtain pose from QR code).
 
-[INSERT IMAGE OF QR CODE TRACKING]
+![a2](./catkin_ws/src/pic/a2.png)
 
 `rosrun controller controller_node` (Runs ROS node which initiates the path following algorithm for the Fetch robot).
 
