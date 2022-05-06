@@ -1,0 +1,108 @@
+\hypertarget{classFetchMovement}{}\section{Fetch\+Movement Class Reference}
+\label{classFetchMovement}\index{Fetch\+Movement@{Fetch\+Movement}}
+
+
+The \hyperlink{classFetchMovement}{Fetch\+Movement} class.  
+
+
+
+
+{\ttfamily \#include $<$fetchmovement.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classFetchMovement_a1bf728d52720e41eda38728ebc0b43f8}{pure\+Pursuit2} (double range, double x, double bearing, double \&lin, double \&ang, double \&state)
+\begin{DoxyCompactList}\small\item\em Calculates an optimal angular and linear velocity for the Fetch to travel, based on a calculated curvature where the range to the next goal point is the chosen \textquotesingle{}look-\/ahead point\textquotesingle{}. Angular and Linear Velocity are proportional to this path curvature\+: w = curvature$\ast$V. \end{DoxyCompactList}\item 
+void \hyperlink{classFetchMovement_a26cbc437959bf16582bc57a4e1c64b58}{rpy\+From\+Pose} (geometry\+\_\+msgs\+::\+Pose\+Stamped pose, double \&fetch\+Roll, double \&fetch\+Pitch, double \&fetch\+Yaw)
+\begin{DoxyCompactList}\small\item\em Calculates the Roll, Pitch and Yaw via reference of a Robot given its pose described as a a Quaternion being the input parameter. \end{DoxyCompactList}\item 
+double \hyperlink{classFetchMovement_af68c8b26e41ca9c6bca4dba2ccaf5643}{normalise\+Angle} (double theta)
+\begin{DoxyCompactList}\small\item\em Converts an angle outside of the range -\/2\+PI to 2\+PI radians to the equivalent angle inside that range. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classFetchMovement}{Fetch\+Movement} class. 
+
+\begin{DoxyAuthor}{Author}
+Adam Scicluna 
+
+Tor Wei Lim 
+
+Nikhil Senthilvel 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+6/05/2022 
+\end{DoxyDate}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classFetchMovement_af68c8b26e41ca9c6bca4dba2ccaf5643}\label{classFetchMovement_af68c8b26e41ca9c6bca4dba2ccaf5643}} 
+\index{Fetch\+Movement@{Fetch\+Movement}!normalise\+Angle@{normalise\+Angle}}
+\index{normalise\+Angle@{normalise\+Angle}!Fetch\+Movement@{Fetch\+Movement}}
+\subsubsection{\texorpdfstring{normalise\+Angle()}{normaliseAngle()}}
+{\footnotesize\ttfamily double Fetch\+Movement\+::normalise\+Angle (\begin{DoxyParamCaption}\item[{double}]{theta }\end{DoxyParamCaption})}
+
+
+
+Converts an angle outside of the range -\/2\+PI to 2\+PI radians to the equivalent angle inside that range. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em theta} & -\/ The angle to be mapped inside the range -\/2\+PI to 2\+PI radians.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double -\/ Function will return the input angle in radians mapped to a value in the range -\/2\+PI to 2\+PI. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFetchMovement_a1bf728d52720e41eda38728ebc0b43f8}\label{classFetchMovement_a1bf728d52720e41eda38728ebc0b43f8}} 
+\index{Fetch\+Movement@{Fetch\+Movement}!pure\+Pursuit2@{pure\+Pursuit2}}
+\index{pure\+Pursuit2@{pure\+Pursuit2}!Fetch\+Movement@{Fetch\+Movement}}
+\subsubsection{\texorpdfstring{pure\+Pursuit2()}{purePursuit2()}}
+{\footnotesize\ttfamily void Fetch\+Movement\+::pure\+Pursuit2 (\begin{DoxyParamCaption}\item[{double}]{range,  }\item[{double}]{x,  }\item[{double}]{bearing,  }\item[{double \&}]{lin,  }\item[{double \&}]{ang,  }\item[{double \&}]{state }\end{DoxyParamCaption})}
+
+
+
+Calculates an optimal angular and linear velocity for the Fetch to travel, based on a calculated curvature where the range to the next goal point is the chosen \textquotesingle{}look-\/ahead point\textquotesingle{}. Angular and Linear Velocity are proportional to this path curvature\+: w = curvature$\ast$V. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em range} & -\/ The current distance from the fetch robot to its goal pose. \\
+\hline
+\mbox{\tt in}  & {\em bearing} & -\/ The bearing difference from the Fetch heading to goal position. \\
+\hline
+\mbox{\tt in}  & {\em lin} & -\/ Reference to the variable controlling linear velocity of Fetch. \\
+\hline
+\mbox{\tt in}  & {\em ang} & -\/ Reference to the variable controlling angular velocity of Fetch. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+The lin and ang parameters are updated via reference, meaning no return variable is necessary. For optimisation, if the bearing difference is between +-\/ 2 degrees when the Fetch is moving forward, angular velocity will be set to zero. Similarly, when reversing, the angular velocity will be set to zero if the bearing difference is within +-\/ 5 degrees, a larger range to allow for the Fetch to reverse more quickly as the target distance decreases. 
+\end{DoxyNote}
+\mbox{\Hypertarget{classFetchMovement_a26cbc437959bf16582bc57a4e1c64b58}\label{classFetchMovement_a26cbc437959bf16582bc57a4e1c64b58}} 
+\index{Fetch\+Movement@{Fetch\+Movement}!rpy\+From\+Pose@{rpy\+From\+Pose}}
+\index{rpy\+From\+Pose@{rpy\+From\+Pose}!Fetch\+Movement@{Fetch\+Movement}}
+\subsubsection{\texorpdfstring{rpy\+From\+Pose()}{rpyFromPose()}}
+{\footnotesize\ttfamily void Fetch\+Movement\+::rpy\+From\+Pose (\begin{DoxyParamCaption}\item[{geometry\+\_\+msgs\+::\+Pose\+Stamped}]{pose,  }\item[{double \&}]{fetch\+Roll,  }\item[{double \&}]{fetch\+Pitch,  }\item[{double \&}]{fetch\+Yaw }\end{DoxyParamCaption})}
+
+
+
+Calculates the Roll, Pitch and Yaw via reference of a Robot given its pose described as a a Quaternion being the input parameter. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em fetch\+Roll} & -\/ Reference to the variable holding the current roll value of the Fetch. \\
+\hline
+\mbox{\tt in}  & {\em fetch\+Pitch} & -\/ Reference to the variable holding the current pitch value of the Fetch. \\
+\hline
+\mbox{\tt in}  & {\em fetch\+Yaw} & -\/ Reference to the variable holding the current yaw value of the Fetch. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+The roll, pitch and yaw parameters are updated via reference, meaning no return variable is necessary. The function obtains the roll, pitch, yaw from the pose Quaternion by first converting the Quaternion to a 3x3 Rotation Matrix, in which the Roll, Pitch and Yaw can then be directly extracted. 
+\end{DoxyNote}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+fetchmovement.\+h\item 
+fetchmovement.\+cpp\end{DoxyCompactItemize}
