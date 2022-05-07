@@ -45,7 +45,7 @@ The following is a complete guide to setup and run the simulation. Please ensure
 
 6. Run `source ~/.bashrc` in your terminal then build your catkin workspace using `catkin_make`.
 
-7. Run the following four lines of code in your terminal. 
+7. Run each of the following four lines of code in your terminal in separate windows/ tabs. 
 
 * `roslaunch fetch_gazebo fetch.launch` opens the Gazebo simulation along with Fetch robot, Turtlebot guider robot and pre-made world file.
 
