@@ -16,7 +16,11 @@ Welcome to our group project for Sensors and Control Autumn 2022. The following 
   `cp -r catkin_ws/src/models/maze .gazebo/models/`
   `cp -r catkin_ws/src/models/table_marble .gazebo/models/`
 
-4. Build your workspace and run the following four lines of code in your terminal. 
+4. Edit your bashrc file using `gedit ~/.bashrc` in the terminal and insert `export ROS_MASTER_URI=http://localhost:11311` and `export ROS_HOSTNAME=localhost` at the bottom. 
+
+5. Run `source ~/.bashrc` in your terminal then build your catkin workspace using `catkin_make`.
+
+6. Run the following four lines of code in your terminal. 
 
 * `roslaunch fetch_gazebo fetch.launch` opens the Gazebo simulation along with Fetch robot, Turtlebot guider robot and pre-made world file.
 
