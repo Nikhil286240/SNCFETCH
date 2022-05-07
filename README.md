@@ -9,7 +9,7 @@ Welcome to our group project for Sensors and Control Autumn 2022. The following 
 
 1. Install Gazebo (with Fetch) using `sudo apt-get update` and `sudo apt-get install ros-$ROS_DISTRO-fetch-gazebo-demo`.
 
-2. Install Turtlebot packages from entering the lines below. 
+2. Install Turtlebot packages from entering the lines below in your terminal. 
 
 `cd ~/catkin_ws/src/` <br />
 `git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git` <br />
