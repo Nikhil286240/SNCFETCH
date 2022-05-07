@@ -33,9 +33,7 @@ Welcome to our group project for Sensors and Control Autumn 2022. The following 
 
 6. Run `source ~/.bashrc` in your terminal then build your catkin workspace using `catkin_make`.
 
-7. Install the Turtlebot keyboard controller using 
-
-8. Run the following four lines of code in your terminal. 
+7. Run the following four lines of code in your terminal. 
 
 * `roslaunch fetch_gazebo fetch.launch` opens the Gazebo simulation along with Fetch robot, Turtlebot guider robot and pre-made world file.
 
