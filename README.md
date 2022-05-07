@@ -5,7 +5,7 @@ Welcome to our group project for Sensors and Control Autumn 2022.
 
 Viewing Doxygen
 ------
-The Doxygen details an overview of the whole program and can be accessed by heading into `catkin_ws/src/controller/src/` in your terminal and entering 
+The Doxygen details an overview of the whole program and can be accessed (after following the setup guide) by heading into `catkin_ws/src/controller/src/` in your terminal and entering 
 
 `doxygen -g` <br />
 `doxygen Doxyfile` <br />
