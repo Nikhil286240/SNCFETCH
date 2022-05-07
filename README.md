@@ -15,7 +15,7 @@ The Doxygen details an overview of the whole program and can be accessed by head
 Setup guide
 ------
 
-The following is a complete guide to setup and run the simulation. Please ensure you have ROS Melodic on Ubuntu 18.04 before you continue. 
+The following is a complete guide to setup and run the simulation. Please ensure you are running ROS Melodic on Ubuntu 18.04 before you continue. 
 
 1. Install Gazebo (with Fetch) using `sudo apt-get update` and `sudo apt-get install ros-$ROS_DISTRO-fetch-gazebo-demo`.
 
