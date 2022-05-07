@@ -1,7 +1,7 @@
 Sensors & Control Group Project 
 ======
 
-Welcome to our group project for Sensors and Control Autumn 2022. The is git is the final version of a previous git as see here: https://github.com/Nikhil286240/SNC. 
+Welcome to our group project for Sensors and Control Autumn 2022. The is git is the final version of a previous git as seen here: https://github.com/Nikhil286240/SNC. 
 
 Viewing Doxygen
 ------
