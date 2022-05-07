@@ -13,7 +13,7 @@ Welcome to our group project for Sensors and Control Autumn 2022. The following 
 
 3. Copy the two model files used from the "models" folder and paste them into your ".gazebo" folder from the two lines. This step is only to have the environment models in the simulation and is not necessary.
   
-  `cp -r catkin_ws/src/models/maze .gazebo/models/`
+  `cp -r catkin_ws/src/models/maze .gazebo/models/` <br />
   `cp -r catkin_ws/src/models/table_marble .gazebo/models/`
 
 4. Edit your bashrc file using `gedit ~/.bashrc` in the terminal and insert `export ROS_MASTER_URI=http://localhost:11311` and `export ROS_HOSTNAME=localhost` at the bottom. 
