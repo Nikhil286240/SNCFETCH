@@ -20,7 +20,7 @@ Welcome to our group project for Sensors and Control Autumn 2022. The following 
 
 `export TURTLEBOT3_MODEL=waffle` <br />
 `export ROS_MASTER_URI=http://localhost:11311` <br />
-`export ROS_HOSTNAME=localhost` at the bottom. <br />
+`export ROS_HOSTNAME=localhost` <br />
 
 5. Run `source ~/.bashrc` in your terminal then build your catkin workspace using `catkin_make`.
 
