@@ -7,7 +7,7 @@ Viewing Doxygen
 ------
 The Doxygen details an overview of the whole program and can be accessed by heading into `catkin_ws/src/controller/src/` in your terminal and entering 
 
-`firefox html/index.html` <br />
+`doxygen -g` <br />
 `doxygen Doxyfile` <br />
 `firefox html/index.html` <br />
 
