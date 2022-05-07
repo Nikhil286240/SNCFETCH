@@ -11,6 +11,8 @@ The Doxygen details an overview of the whole program and can be accessed (after 
 `doxygen Doxyfile` <br />
 `firefox html/index.html` <br />
 
+Percentages of individual code contributions can be seen in the index.dox file.
+
 
 Setup guide
 ------
