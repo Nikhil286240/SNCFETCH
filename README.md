@@ -1,11 +1,17 @@
 Sensors & Control Group Project 
 ======
 
+Welcome to our group project for Sensors and Control Autumn 2022.
+
+Viewing Doxygen
+------
+The Doxygen details an overview of the whole program and can be accessed by
+
+
 Setup guide
 ------
 
-Welcome to our group project for Sensors and Control Autumn 2022. The following is a complete guide to setup and run the simulation. Please ensure you have ROS Melodic on Ubuntu 18.04 before you continue. 
-
+The following is a complete guide to setup and run the simulation. Please ensure you have ROS Melodic on Ubuntu 18.04 before you continue. 
 
 1. Install Gazebo (with Fetch) using `sudo apt-get update` and `sudo apt-get install ros-$ROS_DISTRO-fetch-gazebo-demo`.
 
