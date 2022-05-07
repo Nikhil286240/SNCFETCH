@@ -1,0 +1,34 @@
+/*!
+
+*/
+
+// without this gap between two doxygen definition, the last group does not get
+// populated properly for some reason.
+
+/*!
+@mainpage Sensors and Control Group Project: Fetch robot following the path of a guider robot. 
+
+
+@section ac_doc_index_more_info Program Overview
+
+The following program is for the our Sensors & Control group project, Fetch robot following the path of a guider robot. It involves using a control algorithm to move and control the Fetch robot to follow the path of a guider robot (Turtlebot) by using the RGB camera and base movement on the Fetch robot. To launch the simulation, simply enter "roslaunch fetch_gazebo fetch.launch" in your terminal, however, please follow the setup guide contained in the readme file on Github first. 
+
+@section ac_doc_code_behaviour Behaviour of Code
+
+The code contains the necessary source and header files for the group project, Fetch robot following the path of a guider robot. This includes a 'fetchmovement' header and source file as well as a source file, controller_node.cpp.
+
+@subsection ac_doc_data_fetch fetchmovement.h/ fetchmovement.cpp
+
+The Fetchmovement class contains the pure pursuit function of which is the basis of the path following for the Fetch robot. This function calculates the required angular and linear velocities for the Fetch robot using the curvature of where the range to the next goal point is chosen (look-ahead point). The angular and linear velocities are proportional to the curvature of the path. There is also a function in this class which calculates the roll, pitch and yaw derived from the supplied pose as well as an angle wrapping function. 
+
+@subsection ac_doc_data_control controller_node.cpp
+
+The controller_node.cpp is the main source file of which directly subscribes and publishes to the Fetch robot and Vision ViSP ROS package. The subscriptions involve the pose of the QR code, the status of whether the QR code is detected by the Fetch's RGB camera and the base laser of the Fetch. The only publisher is to the base movement of the Fetch. This file also contains the algorithm for obstacle detection/ collision avoidance and path following of where if the Fetch approaches an obstacle while following, it will attempt to avoid and dodge said obstacle. Furthermore, in the even of where the Fetch robot loses sight of the QR code, it will continue following among the nearest wall until the QR code is reacquired. 
+
+
+@n By Adam Scicluna, Tor Wei Lim and Nikhil Senthilvel
+
+*/
+
+
+
