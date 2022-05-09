@@ -11,6 +11,8 @@ The Doxygen details an overview of the whole program and can be accessed (after 
 `doxygen Doxyfile` <br />
 `firefox html/index.html` <br />
 
+Percentages of individual code contributions can be seen in the index.dox file.
+
 
 Setup guide
 ------
@@ -43,7 +45,7 @@ The following is a complete guide to setup and run the simulation. Please ensure
 
 6. Run `source ~/.bashrc` in your terminal then build your catkin workspace using `catkin_make`.
 
-7. Run the following four lines of code in your terminal. 
+7. Run each of the following four lines of code in your terminal in separate windows/ tabs. 
 
 * `roslaunch fetch_gazebo fetch.launch` opens the Gazebo simulation along with Fetch robot, Turtlebot guider robot and pre-made world file.
 
