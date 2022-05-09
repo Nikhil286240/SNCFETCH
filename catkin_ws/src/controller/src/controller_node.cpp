@@ -12,18 +12,17 @@
 
 #include "fetchmovement.h"
 
-#define QR_CODE_WIDTH 15.2
+#define QR_CODE_WIDTH 15.2          // Width of the QR Code in CM
 #define DIST_SCALE_CONSTANT 0.2
 
 geometry_msgs::PoseStamped pose;
-nav_msgs::Odometry fetchPose;
+geometry_msgs::PoseStamped fetchPose;
 sensor_msgs::LaserScan base_scan;
 double current_status = 0.0;
 const double DIST_SCALE = QR_CODE_WIDTH*DIST_SCALE_CONSTANT;
 
 bool collDetect = false;
 bool inWallFollow = false;
-double lastX = 0;
 
 void chatterCallback(const geometry_msgs::PoseStamped::ConstPtr& msg)
 {
@@ -43,9 +42,9 @@ double quaternionToYaw(geometry_msgs::Quaternion q)
     return std::atan2(2.0f * (q.w * q.z + q.x * q.y), q.w * q.w + q.x * q.x - q.y * q.y - q.z * q.z);
 }
 
-void odomCallback(const nav_msgs::OdometryConstPtr& r)
+void odomCallback(const nav_msgs::Odometry& r)
 {
-    fetchPose.pose = r.get()->pose;
+    fetchPose.pose = r.pose.pose;
 }
 
 void laserCallback(const sensor_msgs::LaserScan& msg)
@@ -68,6 +67,10 @@ int main(int argc, char **argv)
   double something = abs(10);
 
   FetchMovement fetchM;
+  bool inIRL = true;           // Boolean to determine whether the program is being run in the sim vs IRL
+  double lastX = 0;             // Intialising value to track the most recent X Coordinate Value (relative to Fetch)
+  double lastYaw = 0;           // Initialising value to track the Yaw of the robot if it loses track of the QR Code
+  double previous_status = 0;    // Initialising value to keep track of the previous status of tracking the QR Code
 
   while (ros::ok())
   {
@@ -78,21 +81,12 @@ int main(int argc, char **argv)
     // Calc Roll, Pitch, Yaw
     // Calcing Pitch to get Orientation of QR Code
     // SOURCE: https://answers.ros.org/question/238083/how-to-get-yaw-from-quaternion-values/ (Marcoarruda - Aug. 10, 2017)
-    /*
-    double w = pose.pose.orientation.w;
-    double x = pose.pose.orientation.x;
-    double y = pose.pose.orientation.y;
-    double z = pose.pose.orientation.z;
-    tf::Quaternion q(x, y, z, w);
-    tf::Matrix3x3 m(q);
-    */
     double roll, pitch, yaw;
-    //m.getRPY(roll, pitch, yaw);
     fetchM.rpyFromPose(pose, roll, pitch, yaw);
 
     // Calc Rotation of Fetch from Odom Pose
     double fetchRoll, fetchPitch, fetchYaw;
-    //fetchM.rpyFromPose(fetchPose, fetchRoll, fetchPitch, fetchYaw);
+    fetchM.rpyFromPose(fetchPose, fetchRoll, fetchPitch, fetchYaw);
 
     // Variable to send velocity messages to Fetch controller
     geometry_msgs::Twist msg2;
@@ -112,19 +106,19 @@ int main(int argc, char **argv)
 //    ROS_WARN("angle (in deg): [%f]", angle*180/M_PI);
 //    ROS_WARN("pitch (in rad): [%f]", pitch);
 //    ROS_WARN("pitch (in deg): [%f]", pitch*180/M_PI);
-//    ROS_WARN("Fetch x pos: [%f]", fetchPose.pose.position.x);
-//    ROS_WARN("Fetch y pos: [%f]", fetchPose.pose.position.y);
-//    ROS_WARN("Fetch z pos: [%f]", fetchPose.pose.position.z);
+    ROS_WARN("Fetch x pos: [%f]", fetchPose.pose.position.x);
+    ROS_WARN("Fetch y pos: [%f]", fetchPose.pose.position.y);
+    ROS_WARN("Fetch z pos: [%f]", fetchPose.pose.position.z);
 //    ROS_WARN("Fetch Yaw (in rad): [%f]", fetchYaw);
-//    ROS_WARN("Fetch Yaw (in deg): [%f]", fetchYaw*180/M_PI);
-    ROS_WARN("Current Status: [%f]", current_status);
+    ROS_WARN("Fetch Yaw (in deg): [%f]", fetchYaw*180/M_PI);
+//    ROS_WARN("Current Status: [%f]", current_status);
 //    ROS_WARN("Ranges: [%f]", base_scan.ranges.at(0));
 
 
     // If robot can detect QR code
     if((current_status == 0 || current_status == 1) && collDetect == false)
     {
-        ROS_WARN("NO SIGHT");
+        //ROS_WARN("NO SIGHT");
         lin = 0;
         ang = 0;
     } else {
@@ -176,10 +170,10 @@ int main(int argc, char **argv)
             // DODGE and PURSUE
             fetchM.purePursuit2(range, distX, angle, lin, ang, current_status);
 
-            ROS_INFO_STREAM("Smallest angle: " << smallest_angle << "and closest range is " << closest_range);
+            //ROS_INFO_STREAM("Smallest angle: " << smallest_angle << "and closest range is " << closest_range);
             if (smallest_angle > 0 && smallest_angle <= 110) {
-                ROS_INFO_STREAM("OBJECT ON LEFT");
-                ROS_INFO_STREAM("LEFT SIDE: " << closest_range);
+                //ROS_INFO_STREAM("OBJECT ON LEFT");
+                //ROS_INFO_STREAM("LEFT SIDE: " << closest_range);
                 if (closest_range < 0.5){ang = -0.2; lin = 0.2;}
                 //else if (base_scan.ranges.at(20/0.33) >= 0.55 && base_scan.ranges.at(20/0.33) <= 0.8) {ang = 0; lin = 0.3;}
                 //else if (base_scan.ranges.at(20/0.33) > 0.8  && base_scan.ranges.at(20/0.33) < 1){ang = 0.2; lin = 0.3;}
@@ -187,8 +181,8 @@ int main(int argc, char **argv)
 
             }
             else if (smallest_angle > 110 && smallest_angle < 220) {
-                ROS_INFO_STREAM("OBJECT ON RIGHT");
-                ROS_INFO_STREAM("RIGHT SIDE: " << closest_range);
+                //ROS_INFO_STREAM("OBJECT ON RIGHT");
+                //ROS_INFO_STREAM("RIGHT SIDE: " << closest_range);
                 if (closest_range < 0.5){ang = 0.2; lin = 0.2;}
                 //else if (base_scan.ranges.at(110/0.33) >= 0.55 && base_scan.ranges.at(110/0.33 <= 0.8)) {ang = 0; lin = 0.3;}
                 //else if (base_scan.ranges.at(110/0.33) > 0.8 && base_scan.ranges.at(110/0.33 < 1)){ang = -0.2; lin = 0.3;}
@@ -196,60 +190,108 @@ int main(int argc, char **argv)
             }
         }
 
-         else if((current_status != 3 && ((lastX < 0 && base_scan.ranges.at(20/0.33) < 1) || (lastX > 0 && base_scan.ranges.at(200/0.33) < 1))) && inWallFollow == false)
-        // If the robot loses sight of the QR Code, go into wall follow mode.
-        //else if ((current_status != 3 && closest_range < 1) && inWallFollow == false)
+
+        // Different Codes for IRL vs Sim
+        if(inIRL == true)
         {
-            // Loses sight
-            //inWallFollow = true;
-        }
-        if(inWallFollow == true)
-        {
-            // WALL FOLLOW
-            // lin = 0; ang = 0;
-            ROS_WARN("CLOSEST RANGE: [%f]: ", closest_range);
-            ROS_INFO_STREAM("RIGHT SIDE: " << base_scan.ranges.at(200/0.33));
-            ROS_INFO_STREAM("DEAD AHEAD: " << base_scan.ranges.at(110/0.33));
-            ROS_INFO_STREAM("ANGLE: " << smallest_angle);
-
-            if (smallest_angle > 0 && smallest_angle <= 110)
+            // If we have just lost sight of the QR code, get the current Yaw of the Robot
+            if(previous_status == 3 && current_status != 3)
             {
-                ROS_INFO_STREAM("OBJECT ON LEFT. WALL FOLLOWING");
-                if (closest_range < 0.5){ang = -0.2; lin = 0.3;}
-                else if (closest_range >= 0.5 && closest_range <= 0.8) {ang = 0; lin = 0.3;}
-                else if (closest_range > 0.8  && closest_range < 1){ang = 0.2; lin = 0.3;}
-
-                if (base_scan.ranges.at(20/0.33) >= 1){ang = 0.5; lin = 0.3;}
-                if (base_scan.ranges.at(110/0.33) <= 0.8) {ang = -0.5;}
-
-            }
-            else if (smallest_angle > 110 && smallest_angle < 220)
-            {
-                ROS_INFO_STREAM("OBJECT ON RIGHT. WALL FOLLOWING");
-                if (closest_range < 0.5){ang = 0.2; lin = 0.3;}
-                else if (closest_range >= 0.5 && closest_range <= 0.8) {ang = 0; lin = 0.3;}
-                else if (closest_range > 0.8 && closest_range < 1){ang = -0.2; lin = 0.3;}
-
-
-                if (base_scan.ranges.at(200/0.33) >= 1){ang = -0.5; lin = 0.3;}
-                if (base_scan.ranges.at(110/0.33) <= 0.8) {ang = 0.5;}
+                lastYaw = fetchYaw;
             }
 
+            // If the robot can't see the QR Code, start spinning to try and regain view of the QR code (lin is initialised = 0)  
+            if(current_status != 3)
+            {		
+                if(lastX < 0)
+                {   ROS_INFO_STREAM("Rotating CCW. " << "Angle is " << abs(lastYaw-fetchYaw)*180/M_PI);
+                    // If Fetch has rotated approx. > 90 deg, stop rotating (prevent eternal rotation)
+                    if(abs(lastYaw - fetchYaw)*180/M_PI > 90)
+                    {
+                        ang = 0;
+                    }
+                    else
+                    {	
+                        // Rotate CCW
+                        ang = 0.2;
+                    }
+                }
+                else if(lastX > 0)
+                {   ROS_INFO_STREAM("Rotating CW. " << "Angle is " << abs(lastYaw-fetchYaw)*180/M_PI);
+                    // If Fetch has rotated approx. > 90 deg, stop rotating (prevent eternal rotation)
+                    if(abs(lastYaw - fetchYaw)*180/M_PI > 90)
+                    {
+
+                        ang = 0;
+                    }
+                    else
+                    {
+                        // Rotate CW
+                        ang = -0.2;
+                    }
+                }
+            }
         }
 
 
+       // if
+       // {
+            if((current_status != 3 && ((lastX < 0 && base_scan.ranges.at(20/0.33) < 1) || (lastX > 0 && base_scan.ranges.at(200/0.33) < 1))) && inWallFollow == false)
+            // If the robot loses sight of the QR Code, go into wall follow mode.
+            //else if ((current_status != 3 && closest_range < 1) && inWallFollow == false)
+            {
+                // Loses sight
+                inWallFollow = true;
+            }
+            if(inWallFollow == true)
+            {
+                // WALL FOLLOW
+                // lin = 0; ang = 0;
+                //ROS_WARN("CLOSEST RANGE: [%f]: ", closest_range);
+                //ROS_INFO_STREAM("RIGHT SIDE: " << base_scan.ranges.at(200/0.33));
+                //ROS_INFO_STREAM("DEAD AHEAD: " << base_scan.ranges.at(110/0.33));
+                //ROS_INFO_STREAM("ANGLE: " << smallest_angle);
+
+                if (smallest_angle > 0 && smallest_angle <= 110)
+                {
+                    //ROS_INFO_STREAM("OBJECT ON LEFT. WALL FOLLOWING");
+                    if (closest_range < 0.5){ang = -0.2; lin = 0.3;}
+                    else if (closest_range >= 0.5 && closest_range <= 0.8) {ang = 0; lin = 0.3;}
+                    else if (closest_range > 0.8  && closest_range < 1){ang = 0.2; lin = 0.3;}
+
+                    if (base_scan.ranges.at(20/0.33) >= 1){ang = 0.5; lin = 0.3;}
+                    if (base_scan.ranges.at(110/0.33) <= 0.8) {ang = -0.5;}
+
+                }
+                else if (smallest_angle > 110 && smallest_angle < 220)
+                {
+                    //ROS_INFO_STREAM("OBJECT ON RIGHT. WALL FOLLOWING");
+                    if (closest_range < 0.5){ang = 0.2; lin = 0.3;}
+                    else if (closest_range >= 0.5 && closest_range <= 0.8) {ang = 0; lin = 0.3;}
+                    else if (closest_range > 0.8 && closest_range < 1){ang = -0.2; lin = 0.3;}
 
 
+                    if (base_scan.ranges.at(200/0.33) >= 1){ang = -0.5; lin = 0.3;}
+                    if (base_scan.ranges.at(110/0.33) <= 0.8) {ang = 0.5;}
+                }
 
+            }
+      //  }
+        
     }
 
 
 
-            ROS_INFO_STREAM("Smallest angle: " << smallest_angle << "and closest range is " << closest_range);
+    //ROS_INFO_STREAM("Smallest angle: " << smallest_angle << "and closest range is " << closest_range);
 
-
-    // Update lastX
-    lastX = distX;
+    // Update lastX (if current_status == 3)
+    if(current_status == 3)
+    {
+        lastX = distX;
+    }
+    // Update previous_status
+    previous_status = current_status;
+    
 
     // Publish calculated linear/angular velocities
     msg2.linear.x = lin;
