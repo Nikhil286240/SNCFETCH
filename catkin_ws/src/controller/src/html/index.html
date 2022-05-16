@@ -74,6 +74,7 @@ fetchmovement.h/ fetchmovement.cpp</h2>
 <h2><a class="anchor" id="ac_doc_data_control"></a>
 controller_node.cpp</h2>
 <p>The controller_node.cpp is the main source file of which directly subscribes and publishes to the Fetch robot and Vision ViSP ROS package. The subscriptions involve the pose of the QR code, the status of whether the QR code is detected by the Fetch's RGB camera and the base laser of the Fetch. The only publisher is to the base movement of the Fetch. This file also contains the algorithm for obstacle detection/ collision avoidance and path following of where if the Fetch approaches an obstacle while following, it will attempt to avoid and dodge said obstacle. Furthermore, in the even of where the Fetch robot loses sight of the QR code, it will continue following among the nearest wall until the QR code is reacquired.</p>
+<p>Code contributions can be seen below: Adam Scicluna - 33% Tor Wei Lim - 33% Nikhil Senthilvel - 33%</p>
 <p><br />
  By Adam Scicluna, Tor Wei Lim and Nikhil Senthilvel </p>
 </div></div><!-- contents -->

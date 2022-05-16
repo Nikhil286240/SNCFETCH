@@ -13,7 +13,7 @@
 
 The following program is for the our Sensors & Control group project, Fetch robot following the path of a guider robot. It involves using a control algorithm to move and control the Fetch robot to follow the path of a guider robot (Turtlebot) by using the RGB camera and base movement on the Fetch robot. To launch the simulation, simply enter "roslaunch fetch_gazebo fetch.launch" in your terminal, however, please follow the setup guide contained in the readme file on Github first. 
 
-@section ac_doc_code_behaviour Behaviour of Code
+@section ac_doc_code_behaviour Structure of Code
 
 The code contains the necessary source and header files for the group project, Fetch robot following the path of a guider robot. This includes a 'fetchmovement' header and source file as well as a source file, controller_node.cpp.
 

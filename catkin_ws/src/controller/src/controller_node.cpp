@@ -20,6 +20,7 @@ geometry_msgs::PoseStamped fetchPose;
 sensor_msgs::LaserScan base_scan;
 double current_status = 0.0;
 const double DIST_SCALE = QR_CODE_WIDTH*DIST_SCALE_CONSTANT;
+double i;
 
 bool collDetect = false;
 bool inWallFollow = false;
@@ -67,7 +68,7 @@ int main(int argc, char **argv)
   double something = abs(10);
 
   FetchMovement fetchM;
-  bool inIRL = true;           // Boolean to determine whether the program is being run in the sim vs IRL
+  bool inIRL = false;           // Boolean to determine whether the program is being run in the sim vs IRL
   double lastX = 0;             // Intialising value to track the most recent X Coordinate Value (relative to Fetch)
   double lastYaw = 0;           // Initialising value to track the Yaw of the robot if it loses track of the QR Code
   double previous_status = 0;    // Initialising value to keep track of the previous status of tracking the QR Code
@@ -197,16 +198,20 @@ int main(int argc, char **argv)
             // If we have just lost sight of the QR code, get the current Yaw of the Robot
             if(previous_status == 3 && current_status != 3)
             {
+
                 lastYaw = fetchYaw;
             }
 
             // If the robot can't see the QR Code, start spinning to try and regain view of the QR code (lin is initialised = 0)  
             if(current_status != 3)
-            {		
+            {
                 if(lastX < 0)
-                {   ROS_INFO_STREAM("Rotating CCW. " << "Angle is " << abs(lastYaw-fetchYaw)*180/M_PI);
+                {   //ROS_INFO_STREAM("Rotating CCW. " << "Angle is " << fetchYaw*180/M_PI);
+                    i++;
+                    ROS_INFO_STREAM(i);
                     // If Fetch has rotated approx. > 90 deg, stop rotating (prevent eternal rotation)
-                    if(abs(lastYaw - fetchYaw)*180/M_PI > 90)
+
+                    if(fetchYaw > fetchM.normaliseAngle(lastYaw+120*M_PI/180))
                     {
                         ang = 0;
                     }
@@ -217,9 +222,9 @@ int main(int argc, char **argv)
                     }
                 }
                 else if(lastX > 0)
-                {   ROS_INFO_STREAM("Rotating CW. " << "Angle is " << abs(lastYaw-fetchYaw)*180/M_PI);
+                {   //ROS_INFO_STREAM("Rotating CW. " << "Angle is " << fetchYaw*180/M_PI);
                     // If Fetch has rotated approx. > 90 deg, stop rotating (prevent eternal rotation)
-                    if(abs(lastYaw - fetchYaw)*180/M_PI > 90)
+                    if(fetchYaw > fetchM.normaliseAngle(lastYaw-120*M_PI/180))
                     {
 
                         ang = 0;
@@ -236,7 +241,7 @@ int main(int argc, char **argv)
 
        // if
        // {
-            if((current_status != 3 && ((lastX < 0 && base_scan.ranges.at(20/0.33) < 1) || (lastX > 0 && base_scan.ranges.at(200/0.33) < 1))) && inWallFollow == false)
+            if(/*(*/current_status != 3/* && ((lastX < 0 && base_scan.ranges.at(20/0.33) < 1) || (lastX > 0 && base_scan.ranges.at(200/0.33) < 1)))*/ && inWallFollow == false)
             // If the robot loses sight of the QR Code, go into wall follow mode.
             //else if ((current_status != 3 && closest_range < 1) && inWallFollow == false)
             {
